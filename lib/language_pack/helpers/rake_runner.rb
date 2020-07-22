@@ -73,6 +73,13 @@ class LanguagePack::Helpers::RakeRunner
     end
   end
 
+  def log_stuff
+    puts "has_rake_gem? #{@has_rake_gem}"
+    puts "rake installed? #{has_rake_installed?}"
+    puts "found rake tasks: #{@rake_tasks}"
+    puts "@rakefile_can_load? #{@rakefile_can_load}"
+  end
+
   def cannot_load_rakefile?
     !rakefile_can_load?
   end
@@ -111,8 +118,13 @@ class LanguagePack::Helpers::RakeRunner
   end
 
   def task_defined?(task)
-    return false if cannot_load_rakefile?
+    if cannot_load_rakefile?
+      puts "task_defined? cannot_load_rakefile?"
+      return false
+    end
     @task_available ||= Hash.new {|hash, key| hash[key] = @rake_tasks.match(/\s#{key}\s/) }
+    puts "@task_available #{@task_available}"
+    puts "@task_available[task] #{@task_available}"
     @task_available[task]
   end
 
