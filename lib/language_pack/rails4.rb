@@ -83,8 +83,9 @@ WARNING
 
         precompile = rake.task("assets:precompile")
 
+        puts "rake tasks: #{rake.rake_tasks}"
         puts "precompile.not_defined? is #{precompile.not_defined?} in rails4.rb"
-        rake.log_stuff
+
 
         return true if precompile.not_defined?
 
