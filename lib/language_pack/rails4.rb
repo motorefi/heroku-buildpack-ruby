@@ -74,14 +74,18 @@ WARNING
   end
 
   def run_assets_precompile_rake_task
+    puts "run_assets_precompile_rake_task in rails4.rb"
     instrument "rails4.run_assets_precompile_rake_task" do
       log("assets_precompile") do
+        puts "log assets_precompile in rails4.rb"
         if Dir.glob("public/assets/{.sprockets-manifest-*.json,manifest-*.json}", File::FNM_DOTMATCH).any?
           puts "Detected manifest file, assuming assets were compiled locally"
           return true
         end
 
+        puts "attempt to create precompile in rails4.rb"
         precompile = rake.task("assets:precompile")
+        puts "precompile.not_defined? is #{precompile.not_defined?} in rails4.rb"
         return true if precompile.not_defined?
 
         topic("Preparing app for Rails asset pipeline")
